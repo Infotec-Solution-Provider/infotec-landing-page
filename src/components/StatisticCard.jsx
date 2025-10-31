@@ -1,65 +1,132 @@
 import React from 'react';
-import { CssBaseline, Grid, Typography, Box } from '@mui/material';
+import { Grid, Typography, Box, useTheme } from '@mui/material';
+import { TrendingUp } from '@mui/icons-material';
 
-const StatisticCard = ({ value, label }) => {
+const StatisticCard = ({ value, label, icon }) => {
+  const theme = useTheme();
+  
   return (
     <Box
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: 'white',
-        color: 'black',
-        width: '100%', // Ocupa toda a largura disponível do Grid item
-        padding: '20px',
-        boxSizing: 'border-box',
-        minHeight: '100px', // Altura mínima para garantir consistência
-      }}>
-      <Typography variant="subtitle1" style={{
-          fontWeight: 400,
-          textAlign: 'center',
-          fontSize: 'calc(0.6rem + 0.8vw)', // Reduzindo o tamanho da fonte
-        }}>
-        {label}
-      </Typography>
-      <Typography variant="h4" component="p" style={{
-          fontFamily: '"Comic Sans MS", "Chalkboard SE", "Comic Neue", cursive',
-          fontWeight: 600,
-          textAlign: 'center',
-          fontSize: 'calc(0.8rem + 1vw)', // Reduzindo o tamanho da fonte
-        }}>
+      sx={{
+        position: 'relative',
+        p: 4,
+        textAlign: 'center',
+        transition: 'all 0.3s ease',
+        '&:hover': {
+          transform: 'translateY(-8px)',
+        },
+        '&::after': {
+          content: '""',
+          position: 'absolute',
+          right: 0,
+          top: '20%',
+          height: '60%',
+          width: '1px',
+          background: 'linear-gradient(180deg, transparent, rgba(37, 211, 102, 0.3), transparent)',
+        },
+        '&:last-child::after': {
+          display: 'none',
+        }
+      }}
+    >
+      {icon && (
+        <Box sx={{ mb: 2, display: 'flex', justifyContent: 'center' }}>
+          {icon}
+        </Box>
+      )}
+      <Typography 
+        variant="h2" 
+        sx={{
+          fontWeight: 800,
+          color: '#25D366',
+          mb: 1,
+          fontSize: { xs: '2.5rem', md: '3.5rem' },
+          fontFamily: '"Inter", "Roboto", sans-serif',
+        }}
+      >
         {value}
+      </Typography>
+      <Typography 
+        variant="body1" 
+        sx={{
+          color: 'rgba(255,255,255,0.9)',
+          fontWeight: 500,
+          fontSize: { xs: '0.95rem', md: '1.1rem' },
+          lineHeight: 1.5,
+        }}
+      >
+        {label}
       </Typography>
     </Box>
   );
 };
 
 const StatisticsSection = () => {
+  const theme = useTheme();
+
+  const stats = [
+    { value: '+200', label: 'Projetos Implantados' },
+    { value: '+3 mil', label: 'Pessoas Treinadas e Selecionadas' },
+    { value: '+1 mil', label: 'Treinamentos Executados' },
+  ];
+
   return (
-    <React.Fragment>
-      <CssBaseline />
-      <Box bgcolor="#1e4363" color="white" padding={3} style={{ 
-          width: '100%',
-          maxWidth: '80%',
-          margin: 'auto',
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'center',
-        }}>
-        <Grid container spacing={0} justifyContent="center" alignItems="stretch">
-          <Grid item xs={12} sm={4} style={{ padding: 0, display: 'flex' }}>
-            <StatisticCard value="+200" label="Projetos Implantados" />
+    <Box 
+      sx={{ 
+        my: 8,
+        p: { xs: 4, md: 6 },
+        borderRadius: 4,
+        background: `linear-gradient(135deg, ${theme.palette.primary.dark} 0%, #0a2540 100%)`,
+        boxShadow: '0 20px 60px rgba(0,0,0,0.2)',
+        position: 'relative',
+        overflow: 'hidden',
+        '&::before': {
+          content: '""',
+          position: 'absolute',
+          top: '-50%',
+          left: '-10%',
+          width: '300px',
+          height: '300px',
+          borderRadius: '50%',
+          background: 'radial-gradient(circle, rgba(37, 211, 102, 0.1) 0%, transparent 70%)',
+          pointerEvents: 'none',
+        },
+        '&::after': {
+          content: '""',
+          position: 'absolute',
+          bottom: '-50%',
+          right: '-10%',
+          width: '400px',
+          height: '400px',
+          borderRadius: '50%',
+          background: 'radial-gradient(circle, rgba(73, 108, 163, 0.1) 0%, transparent 70%)',
+          pointerEvents: 'none',
+        }
+      }}
+      data-aos="fade-up"
+    >
+      <Grid 
+        container 
+        spacing={0}
+        sx={{
+          position: 'relative',
+          zIndex: 1,
+        }}
+      >
+        {stats.map((stat, index) => (
+          <Grid 
+            item 
+            xs={12} 
+            md={4} 
+            key={index}
+            data-aos="zoom-in"
+            data-aos-delay={index * 100}
+          >
+            <StatisticCard {...stat} />
           </Grid>
-          <Grid item xs={12} sm={4} style={{ padding: 0, display: 'flex' }}>
-            <StatisticCard value="+3mil" label="Pessoas Treinadas e Selecionadas" />
-          </Grid>
-          <Grid item xs={12} sm={4} style={{ padding: 0, display: 'flex' }}>
-            <StatisticCard value="+1mil" label="Treinamentos Executados de ponta a ponta" />
-          </Grid>
-        </Grid>
-      </Box>
-    </React.Fragment>
+        ))}
+      </Grid>
+    </Box>
   );
 };
 

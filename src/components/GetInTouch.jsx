@@ -1,22 +1,8 @@
 import React from 'react';
-import { Box, Grid, Typography, Card, CardContent, useTheme } from '@mui/material';
+import { Box, Container, Grid, Typography, Card, CardContent, useTheme, Avatar, Rating, Stack } from '@mui/material';
+import { FormatQuote } from '@mui/icons-material';
 import logoCliente5 from '../assets/Imagem5.png';
 import logoCliente6 from '../assets/Imagem6.png';
-const CustomerAvatar = ({ src, alt, sx }) => (
-  <Box
-    sx={{
-      width: sx.width,  // Usa a largura definida no sx prop
-      height: sx.height, // Usa a altura definida no sx prop
-      borderRadius: '50%', // Torna o avatar redondo
-      overflow: 'hidden', // Impede que a imagem exceda os limites do círculo
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center'
-    }}
-  >
-    <img src={src} alt={alt} style={{ width: '100%', height: 'auto', objectFit: 'contain' }} />
-  </Box>
-);
 
 const CustomerCarousel = () => {
   const theme = useTheme();
@@ -24,49 +10,231 @@ const CustomerCarousel = () => {
   const customers = [
     {
       name: 'Oxford Porcelanas S.A.',
-      comment: 'Implantamos o SGR (InPulse), à 06 anos atrás, um sistema ideal para o nosso Televendas. Onde conseguimos colocar o maior número de informações, compras, históricos, as ligações ficam todas gravadas, contribuindo para o sucesso, segurança  e agilidade na operação diariamente. É ótimo também, na geração de relatórios, pois conseguimos gerar com muita rapidez e precisão.',
-      avatar: logoCliente6,  // Substitua com o caminho correto se necessário
+      comment: 'Implantamos o SGR (InPulse), há 06 anos atrás, um sistema ideal para o nosso Televendas. Onde conseguimos colocar o maior número de informações, compras, históricos, as ligações ficam todas gravadas, contribuindo para o sucesso, segurança e agilidade na operação diariamente. É ótimo também na geração de relatórios, pois conseguimos gerar com muita rapidez e precisão.',
+      avatar: logoCliente6,
+      role: 'Televendas',
+      rating: 5,
     },
     {
       name: 'Karsten S.A.',
       comment: 'O sistema é bastante completo, e as customizações efetuadas na última atualização deixou o sistema bem mais prático e versátil atendendo melhor a nossa necessidade. As configurações são práticas e ajustáveis o que nos permite fazer alterações conforme a necessidade, bem como gerar relatórios que auxiliam na gestão e no melhoramento da eficiência da operação.',
-      avatar: logoCliente5,  // Substitua com o caminho correto se necessário
+      avatar: logoCliente5,
+      role: 'Gestão de Vendas',
+      rating: 5,
     },
   ];
 
   return (
-    <Box sx={{ flexGrow: 1, overflow: 'hidden', px: 3, bgcolor: 'black' }}>
-      <Grid container spacing={2} sx={{ height: '100%' }}>
-        {/* Seção de texto */}
-        <Grid item xs={12} md={6} sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: theme.spacing(4) }}>
-          <Typography variant="h1" component="div" gutterBottom sx={{ color: 'white', fontWeight: 'bold', fontSize: '4.7rem' }}>
-            O QUE FALAM SOBRE A <span style={{color: '#496ca3'}}>INFOTEC</span>
-          </Typography>
-          <Typography variant="body2" sx={{ color: 'white', fontSize: '2.2rem' }}>
-            Veja o que nossos clientes têm a dizer sobre nossos serviços...
-          </Typography>
-        </Grid>
-        {/* Seção de comentários */}
-        <Grid item xs={12} md={6} sx={{ display: 'flex', justifyContent: 'center' }}>
-          <Grid container spacing={2} sx={{ height: '100%' }}>
-            {customers.map((customer, index) => (
-              <Grid item xs={12} sm={6} key={index} sx={{ display: 'flex' }}>
-                <Card sx={{ width: '100%', marginTop: '1rem', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
-                  <CardContent sx={{ flexGrow: 1 }}>
-                    <CustomerAvatar src={customer.avatar} alt={customer.name} sx={{ width: 200, height: 200, mb: 2 , }} />
-                    <Typography gutterBottom variant="h5" component="div">
-                      {customer.name}
-                    </Typography>
-                    <Typography variant="body2" sx={{ fontSize: '1.1rem', fontFamily: '"Comic Sans MS", "Chalkboard SE", "Comic Neue", cursive' }}>
-                      "{customer.comment}"
-                    </Typography>
-                  </CardContent>
-                </Card>
-              </Grid>
-            ))}
+    <Box 
+      sx={{ 
+        background: 'linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%)',
+        py: 12,
+        position: 'relative',
+        overflow: 'hidden',
+        '&::before': {
+          content: '""',
+          position: 'absolute',
+          top: '-50%',
+          right: '-10%',
+          width: '500px',
+          height: '500px',
+          borderRadius: '50%',
+          background: 'radial-gradient(circle, rgba(73, 108, 163, 0.2) 0%, transparent 70%)',
+          pointerEvents: 'none',
+        },
+        '&::after': {
+          content: '""',
+          position: 'absolute',
+          bottom: '-30%',
+          left: '-10%',
+          width: '400px',
+          height: '400px',
+          borderRadius: '50%',
+          background: 'radial-gradient(circle, rgba(37, 211, 102, 0.15) 0%, transparent 70%)',
+          pointerEvents: 'none',
+        }
+      }}
+    >
+      <Container maxWidth="lg">
+        <Grid container spacing={6} alignItems="center">
+          {/* Text Section */}
+          <Grid item xs={12} md={5} data-aos="fade-right">
+            <Box sx={{ position: 'relative' }}>
+              <FormatQuote 
+                sx={{ 
+                  fontSize: 120, 
+                  color: 'rgba(73, 108, 163, 0.2)',
+                  position: 'absolute',
+                  top: -40,
+                  left: -20,
+                }}
+              />
+              <Typography 
+                variant="h2" 
+                sx={{ 
+                  color: 'white', 
+                  fontWeight: 800, 
+                  mb: 2,
+                  position: 'relative',
+                  zIndex: 1,
+                }}
+              >
+                O QUE FALAM SOBRE A{' '}
+                <Box component="span" sx={{ color: theme.palette.primary.main }}>
+                  INFOTEC
+                </Box>
+              </Typography>
+              <Box sx={{ width: 80, height: 4, bgcolor: '#25D366', mb: 3 }} />
+              <Typography 
+                variant="h6" 
+                sx={{ 
+                  color: 'rgba(255,255,255,0.8)', 
+                  lineHeight: 1.8,
+                }}
+              >
+                Veja o que nossos clientes têm a dizer sobre nossos serviços e como transformamos suas operações de vendas.
+              </Typography>
+            </Box>
+          </Grid>
+
+          {/* Testimonials Section */}
+          <Grid item xs={12} md={7}>
+            <Grid container spacing={3}>
+              {customers.map((customer, index) => (
+                <Grid item xs={12} key={index}>
+                  <Card 
+                    data-aos="fade-left"
+                    data-aos-delay={index * 100}
+                    sx={{
+                      background: 'linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%)',
+                      backdropFilter: 'blur(10px)',
+                      border: '1px solid rgba(255,255,255,0.1)',
+                      borderRadius: 1.5,
+                      position: 'relative',
+                      overflow: 'visible',
+                      transition: 'all 0.4s ease',
+                      '&:hover': {
+                        transform: 'translateY(-8px)',
+                        boxShadow: '0px 20px 40px rgba(0,0,0,0.3)',
+                        border: `1px solid ${theme.palette.primary.main}`,
+                      }
+                    }}
+                  >
+                    <CardContent sx={{ p: 4 }}>
+                      <Stack direction="row" spacing={3} alignItems="flex-start">
+                        {/* Avatar */}
+                        <Box
+                          sx={{
+                            position: 'relative',
+                          }}
+                        >
+                          <Box
+                            sx={{
+                              width: 100,
+                              height: 100,
+                              borderRadius: '50%',
+                              overflow: 'hidden',
+                              border: '4px solid rgba(255,255,255,0.2)',
+                              bgcolor: 'white',
+                              display: 'flex',
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                              p: 1,
+                            }}
+                          >
+                            <img 
+                              src={customer.avatar} 
+                              alt={customer.name} 
+                              style={{ 
+                                width: '100%', 
+                                height: 'auto', 
+                                objectFit: 'contain' 
+                              }} 
+                            />
+                          </Box>
+                        </Box>
+
+                        {/* Content */}
+                        <Box sx={{ flex: 1 }}>
+                          <Typography 
+                            variant="h6" 
+                            sx={{ 
+                              color: 'white', 
+                              fontWeight: 700,
+                              mb: 0.5,
+                            }}
+                          >
+                            {customer.name}
+                          </Typography>
+                          <Typography 
+                            variant="body2" 
+                            sx={{ 
+                              color: theme.palette.primary.light,
+                              mb: 2,
+                            }}
+                          >
+                            {customer.role}
+                          </Typography>
+                          <Rating 
+                            value={customer.rating} 
+                            readOnly 
+                            sx={{ 
+                              mb: 2,
+                              '& .MuiRating-iconFilled': {
+                                color: '#25D366',
+                              }
+                            }} 
+                          />
+                          <Typography 
+                            variant="body1" 
+                            sx={{ 
+                              color: 'rgba(255,255,255,0.9)',
+                              lineHeight: 1.8,
+                              fontStyle: 'italic',
+                              position: 'relative',
+                              pl: 3,
+                              '&::before': {
+                                content: '"\\201C"',
+                                position: 'absolute',
+                                left: 0,
+                                top: -5,
+                                fontSize: '2rem',
+                                color: theme.palette.primary.main,
+                              }
+                            }}
+                          >
+                            {customer.comment}
+                          </Typography>
+                        </Box>
+                      </Stack>
+                    </CardContent>
+                  </Card>
+                </Grid>
+              ))}
+            </Grid>
           </Grid>
         </Grid>
-      </Grid>
+
+        {/* CTA Section */}
+        <Box 
+          sx={{ 
+            mt: 8, 
+            textAlign: 'center',
+            p: 6,
+            borderRadius: 1.5,
+            background: 'linear-gradient(135deg, rgba(73, 108, 163, 0.2) 0%, rgba(37, 211, 102, 0.1) 100%)',
+            border: '1px solid rgba(255,255,255,0.1)',
+          }}
+          data-aos="zoom-in"
+        >
+          <Typography variant="h4" sx={{ color: 'white', fontWeight: 700, mb: 2 }}>
+            Pronto para transformar sua operação?
+          </Typography>
+          <Typography variant="h6" sx={{ color: 'rgba(255,255,255,0.8)', mb: 3 }}>
+            Junte-se a centenas de empresas que já confiam na Infotec
+          </Typography>
+        </Box>
+      </Container>
     </Box>
   );
 };
