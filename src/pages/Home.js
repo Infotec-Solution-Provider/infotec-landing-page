@@ -1,17 +1,13 @@
-import React from 'react'
-import CustomerCarousel from '../components/GetInTouch';
-import GetStarted from '../components/GetStarted';
-import Header from '../components/Header';
+import CustomerCarousel from "../components/GetInTouch";
+import Header from "../components/Header";
 
 const Home = () => {
   return (
     <>
       <Header />
-{/*       <GetStarted />
- */}      <CustomerCarousel />
+      <CustomerCarousel />
     </>
+  );
+};
 
-  )
-}
-
-export default Home
+export default Home;
